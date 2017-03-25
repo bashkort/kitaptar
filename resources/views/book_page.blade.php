@@ -19,7 +19,11 @@
                         <tr>
                           <th>
                             <a href="/storage/{{ $file->href }}" download>
-                              <button class="btn btn-primary" onclick="axios.post('/download/{{ $book->id }}');">{{ $file->ext  }}</button>
+                              <button class="btn btn-primary"
+                              @if (Auth::check())
+                               onclick="axios.post('/download/{{ $book->id }}');"
+                               @endif
+                               >{{ $file->ext  }}</button>
                             </a>
                             <span>
                               Добавлено: {{ $file -> created_at  }}
@@ -47,7 +51,9 @@
 
 @endsection
 @section('scripts')
+@if (Auth::check())
 <script type="text/javascript">
   $( document ).ready(axios.post('/view/{{ $book->id }}'));
 </script>
+@endif
 @endsection
