@@ -27,9 +27,9 @@ class CreateBookRequest extends FormRequest
             'name' => 'required|max:255',
             'cover' => 'image',
             'language' => 'required|string',
-            'authors' => 'required|max:255|string',
+            'authors' => 'required',
             'description' => 'required|string',
-            'book_files' => 'required'
+            'book_files' => 'required',
         ];
     }
 }

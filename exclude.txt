@@ -1,0 +1,5 @@
+storage/app/public/
+.git
+node_modules
+.env
+vendor

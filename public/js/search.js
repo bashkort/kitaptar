@@ -14,12 +14,16 @@ function app(opts) {
   apiKey: opts.apiKey,
   indexName: opts.indexName,
   urlSync: true,
-  });
+  searchParameters: {
+    filters: 'active = 1'
+  }
 
+  });
   search.addWidget(
     instantsearch.widgets.searchBox({
-      container: '#search-input',
+      container: '#search-box',
       placeholder: 'Найти книгу',
+
     })
   );
   search.addWidget(
@@ -33,9 +37,14 @@ function app(opts) {
   	})
   	);
     search.addWidget(
+      instantsearch.widgets.stats({
+        container: '#stats'
+      })
+    );
+    search.addWidget(
     instantsearch.widgets.pagination({
       container: '#pagination',
-      scrollTo: '#search-input',
+      scrollTo: '#search-box',
     })
   );
   search.start();

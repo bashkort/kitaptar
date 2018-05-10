@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://kitaptest.bashkort.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     */
 
     'locale' => 'ru',
-
+    'locales' => ['ru', 'en', 'ba'],
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -176,8 +176,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        AlgoliaSearch\Laravel\AlgoliaServiceProvider::class
-
+        Mews\Captcha\CaptchaServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+	Laravel\Passport\PassportServiceProvider::class,
+	Laravel\Scout\ScoutServiceProvider::class,
     ],
 
     /*
@@ -226,7 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+	'Captcha' => Mews\Captcha\Facades\Captcha::class,
+  'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

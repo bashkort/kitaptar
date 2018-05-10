@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -30,16 +31,32 @@ class User extends Authenticatable
     {
       return $this->belongsToMany('App\Book', 'likes');
     }
+    public function reads()
+    {
+      return $this->belongsToMany('App\Book', 'reads')->withPivot('page');
+    }
     public function views()
     {
-      return $this->belongsToMany('App\Book', 'views');
+      return $this->belongsToMany('App\Book', 'authorized_views');
     }
     public function downloads()
     {
-      return $this->belongsToMany('App\Book', 'downloads');
+      return $this->belongsToMany('App\Book', 'authorized_downloads');
     }
     public function books()
     {
       return $this->hasMany('App\Book', 'adder_id');
     }
+  public function role()
+  {
+    return $this->belongsTo('App\Role');
+  }
+  public function toArray(){
+    return array(
+      "id" => $this->id,
+      "name" => $this->name,
+      "email" => $this->email,
+      "reads" => $this->reads
+    );
+  } 
 }

@@ -7,19 +7,19 @@ html {
   background: #FFF;
 }
 header, main, #no-results, footer {
-  width: 1000px;
+  width: 100%;
   margin: 0 auto;
 }
 main {
   min-height: 360px;
 }
 #left-column {
-  float: left;
-  width: 23%;
+  margin: 0 auto;
+  width: 90%;
 }
 #right-column {
-  width: 72%;
-  margin-left: 0;
+  margin: 0 auto;
+  width: 90%;
 }
 
 .clear:after {
@@ -41,48 +41,9 @@ header img {
   float: left;
   max-width: 23%;
 }
-#search-input input {
-  font-size: 28px;
-  font-weight: 100;
-  width: 74%;
-  margin-left: 26%;
-  padding: 10px 0 6px;
-  border: none;
-  border-bottom: 5px solid #eee;
-
-  margin-left: 0;
-  width: 72%;
-
+.ais-search-box{
+  max-width: 100%;
 }
-#search-input input, #search-input input:focus {
-  transition: border-color .3s ease-in;
-  outline: 0;
-}
-#search-input input:focus {
-  border-color: #ed5565;
-}
-#search-input input::-webkit-input-placeholder, #search-input input:-moz-placeholder, #search-input input:-moz-placeholder, #search-input input:-ms-input-placeholder {
-  font-weight: 100;
-  color: #999;
-}
-#search-input-icon {
-  position: relative;
-}
-#search-input-icon:before {
-  position: absolute;
-  right: 0;
-  bottom: 15px;
-  width: 20px;
-  height: 20px;
-  content: '';
-  cursor: default;
-  background: url(img/search_icon.png) no-repeat;
-}
-#search-input-icon.empty:before {
-  cursor: pointer;
-  background-image: url(img/delete_icon.png);
-}
-
 /* HITS */
 #hits {
   margin: 4px 0;
@@ -99,7 +60,7 @@ header img {
 }
 .hit-image {
   display: inline-block;
-  width: 16%;
+  width: 23%;
   text-align: center;
 }
 .hit-image img {
@@ -110,7 +71,7 @@ header img {
   font-size: 13px;
   font-weight: 300;
   display: inline-block;
-  width: 81%;
+  width: 74%;
   margin-left: 3%;
   vertical-align: top;
 }
@@ -161,7 +122,7 @@ header img {
   font-size: 14px;
 }
 
-/* PAGINATION */
+/* PAGINATION 
 #pagination {
   margin-top: 60px;
 }
@@ -179,6 +140,7 @@ header img {
   text-decoration: none;
   color: #000;
   border: 1px solid #eee;
+  display: table-cell
 }
 #pagination a:hover {
   background: #f5f5f5;
@@ -206,6 +168,7 @@ header img {
 #pagination li.ais-pagination--item__disabled a:hover {
   background: none;
 }
+*/
 
 /* SORT BY */
 #sort-by-wrapper {

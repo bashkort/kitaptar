@@ -12,7 +12,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.2.4/dist/instantsearch.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.2.4/dist/instantsearch-theme-algolia.min.css">
     @yield('styles')
 
     <!-- Scripts -->
@@ -61,7 +62,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                  <li> <a href="/home">Домашняя страница</a></li>
+                                  <li> <a href="/my">Мои книги</a></li>
                                   <li> <a href="/add_book">Добавить книгу</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"

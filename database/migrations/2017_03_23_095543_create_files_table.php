@@ -17,7 +17,8 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->integer('book_id');
             $table->string('href');
-            $table->string("ext");
+            $table->string('ext');
+            $table->boolean('active');
             $table->timestamps();
         });
     }
