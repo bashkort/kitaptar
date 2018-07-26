@@ -109,7 +109,7 @@
                         <i class="fa fa-download"></i>{{ $book->authorized_downloads_count + $book->unauthorized_downloads_count  }}
                         @if(Auth::check() && (Auth::user()->role->id == 2 || $book->adder_id == Auth::user()->id))
                             <a href="/edit/book/{{ $book->id }}"><i class="fa fa-edit"></i></a>
-                            <a href="/delete/book/{{ $book->id }}" class="delete-button">
+                            <a href="/delete/book/{{ $book->id }}" style="float: right">
                                 <i class="fa fa-remove"></i> Удалить
                             </a>
                         @endif
