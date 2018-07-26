@@ -1,0 +1,810 @@
+@charset "UTF-8";
+
+/*
+
+// Bashkort.ORG
+// Kitaptar
+// v 0.1
+// Ildar Kinyabulatov
+
+*/
+
+/* FIXES */
+
+img, object, embed, video {
+	max-width: 100%;
+}
+
+@-webkit-viewport { width: device-width; }
+@-moz-viewport { width: device-width; }
+@-ms-viewport { width: device-width; }
+@-o-viewport { width: device-width; }
+@viewport { width: device-width; }
+
+/* IE 6 does not support max-width so default to width 100% */
+.ie6 img {
+	width:100%;
+}
+
+
+/* GLOBAL */
+
+body {
+	width: 100%;
+	height: 100%;
+	font: 1.6em/1.4em 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	color: #000;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: rgba(0,0,0,0.7);
+}
+
+a:visited {
+	color: rgba(0,0,0,1);
+}
+
+
+p {
+	font-size: 0.8em;
+	line-height: 1.4em;
+	color: #333;
+	margin-top: 24px;
+	font-family: 'Roboto', sans-serif;
+	/*font-family: "Georgia, Times New Roman, serif"; */
+	opacity: 0.8;
+}
+
+h1 {
+	font-size: 48px;
+	line-height: 48px;
+	margin-bottom: 14px;
+	/*color: #F98B10;*/
+	color: #fff;
+	letter-spacing: -2px;
+	/*opacity: 0.6;*/
+	font-weight: 500;
+}
+
+h2 {
+	/* text-align: left; */
+	padding: 0;
+	margin: 0 0 35px 0;
+	font-size: 40px;
+	color: black;
+	letter-spacing: -2px;
+	font-weight: 300;
+}
+
+h3 {
+	/*text-align: center;*/
+	padding: 0;
+	margin: 0 0 35px 0;
+	font-size: 30px;
+	color: #333;
+	font-weight: 100;
+}
+
+.shelf {
+	/*background-color: yellow;*/
+	overflow: hidden;
+	height: 210px;
+	position: relative;
+	border-bottom: 1px solid #eee;
+}
+
+.shelf img {
+	width: auto;;
+	height: 150px;
+	margin-right: 10px;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+	/*position: absolute;*/
+	bottom: 0;
+	float: left;
+}
+
+.user {
+	font-size: 14px;
+	float: none;
+	display: block;
+	text-align: left;
+	color: #fff;
+}
+
+.wrapper {
+	padding: 0;
+	margin: 0;
+}
+
+section {
+	width: 100%;
+	height: inherit;
+	background-color: #fff;
+}
+
+section img { /*margin-top: 14px;*/ }
+
+.fluid {
+	clear: both;
+	width: 92%;
+	/*float: left;*/
+	/*background-color: rgba(255,255,255,0.2);*/
+	display: block;
+	margin: 63px auto 35px auto;
+}
+
+.top div.fluid {
+	margin: 7px auto;
+	background-color: transparent;
+}
+
+.fluidList {
+    list-style:none;
+    list-style-image:none;
+    margin:0;
+    padding:0;
+}
+
+.center {
+	text-align: left;
+}
+
+.dark { background-color: #000;}
+.dark h2, .dark span, .dark p, .dark a, .dark a:hover, .dark a:visited {
+	color: #fff;
+}
+
+#team {
+	background-color: rgba(0, 0, 0, 0.53) !important;
+}
+
+/* NAVIGATION */
+
+header {
+	background: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	padding: 8px 20px 6px 20px;
+	z-index: 1000;
+	width: 100%;
+	left: 0;
+	top: 0;
+	text-align: left;
+	display: block;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-webkit-transition: all 500ms ease-in-out;
+	-moz-transition: all 500ms ease-in-out;
+	-o-transition: all 500ms ease-in-out;
+	transition: all 500ms ease-in-out;
+}
+
+header:hover {
+	color: black;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+#logo {
+	padding-top: 40px;
+	/* Высота изображения */
+	height: 0px;
+	/* Нулевая высота заголовка */
+	width: 202px;
+	overflow: hidden;
+	/* Скрывает область */
+	background: url(kitaptar_logo_w.png) no-repeat;
+	/* Фоновый рисунок для замены текста */
+	/*background-color: #eee;*/
+	background-size: 202px auto;
+	background-position: 0px;
+	display: block;
+	/*float: left;*/
+	margin: 10px auto;}
+
+#logo:hover {
+	/*text-decoration: underline;*/
+	opacity: 0.6;
+	color: #fff;
+}
+
+/* Overlay style */
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.9);
+}
+
+.overlay-open {
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	overflow: hidden;
+	border: none;
+	background: url(http://kitaptar.bashkort.org/promo/images/nav.png) no-repeat 50% 38%;
+	background-size: 24px 20px;
+	opacity: 0.6;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+}
+
+/* Overlay closing cross */
+.overlay .overlay-close {
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	overflow: hidden;
+	border: none;
+	background:  rgba(0,0,0,1) url(http://kitaptar.bashkort.org/promo/images/cross.png) no-repeat center center;
+	background-size:  50%;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+	z-index: 100;
+}
+
+/* Menu style */
+.overlay nav {
+	text-align: center;
+	position: relative;
+	top: 50%;
+	height: 60%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.overlay ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	display: inline-block;
+	height: 100%;
+	position: relative;
+}
+
+.overlay ul li {
+	display: block;
+	height: 20%;
+	height: calc(100% / 5);
+	min-height: 54px;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.overlay ul li a {
+	font-size: 54px;
+	font-weight: 300;
+	display: block;
+	color: #fff;
+	-webkit-transition: color 0.2s;
+	transition: color 0.2s;
+}
+
+.overlay ul li a:hover,
+.overlay ul li a:focus {
+	color: #e3fcb1;
+}
+
+/* Effects */
+.overlay-slidedown {
+	visibility: hidden;
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
+	-webkit-transition: -webkit-transform 0.4s ease-in-out, visibility 0s 0.4s;
+	transition: transform 0.4s ease-in-out, visibility 0s 0.4s;
+}
+
+.overlay-slidedown.open {
+	visibility: visible;
+	-webkit-transform: translateY(0%);
+	transform: translateY(0%);
+	-webkit-transition: -webkit-transform 0.4s ease-in-out;
+	transition: transform 0.4s ease-in-out;
+}
+
+/*@media screen and (max-height: 30.5em) {
+	.overlay nav {
+		height: 70%;
+		font-size: 34px;
+	}
+	.overlay ul li {
+		min-height: 34px;
+	}
+
+	.overlay-open {
+		width: 38px;
+		height: 38px;
+		background-position: 50% 50%;
+		padding: 0;
+	}
+	.overlay-close {
+		width: 42px;
+		height: 42px;
+		background-position: 50% 50%;
+	}
+}*/
+
+/* BUTTONS */
+
+.btn {
+
+	/*background: rgba(0,0,0,0.4);*/
+	background-color: transparent;
+	color: #D0021B;
+	/*margin-bottom: 7px;*/
+	font-family: 'Roboto', sans-serif;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-webkit-transition: all 500ms ease-in-out;
+	-moz-transition: all 500ms ease-in-out;
+	-o-transition: all 500ms ease-in-out;
+	transition: all 500ms ease-in-out;
+}
+
+.btn:hover {
+	opacity: 0.6 !important;
+}
+
+.cta {
+	display: block;
+	border-radius: 3px;
+	/* Rectangle 5: */
+	background: #7AB317;
+	font-family: 'Museo Sans';
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 7px;
+	text-align: center;
+	color: #FFF !important;
+	text-decoration: none;
+	margin: 0 auto;
+}
+
+.go {
+	display: inline-block;
+	min-width: 220px;
+	padding: 7px 0 7px 40px;
+	background: url(http://kitaptar.bashkort.org/promo/images/go_red.png) no-repeat 50% 50%;
+	background-position: left;
+	background-size: 32px;
+	font-size: 20px;
+}
+
+.dark .go { background-image: url(http://kitaptar.bashkort.org/promo/images/go_white.png); color: #fff;}
+
+.inf {
+	display: inline-block;
+	background-color: transparent;
+	padding: 7px 0 7px 40px;
+	background: url(http://kitaptar.bashkort.org/promo/images/info_black.png) no-repeat 50% 50%;
+	background-position: left;
+	background-size: 32px;
+	font-size: 20px;
+}
+
+.dwn {
+	display: inline-block;
+	background-color: transparent;
+	padding: 7px 0 7px 40px;
+	background: url(http://kitaptar.bashkort.org/promo/images/download.png) no-repeat 50% 50%;
+	background-position: left;
+	background-size: 32px;
+	font-size: 20px;
+}
+
+.dark .inf { background-image: url(http://kitaptar.bashkort.org/promo/images/info_white.png); color: #fff;}
+
+.dark .dwn { background-image: url(http://kitaptar.bashkort.org/promo/images/download_white.png); color: #fff;}
+
+.down {
+	display: block;
+	float: left;
+	background: rgba(255,255,255,0) url(http://kitaptar.bashkort.org/promo/images/down_arrow.png) no-repeat 50% 50%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 0 auto;
+	width: 100%;
+	height: 48px;
+	background-size: 30px 13px;
+	font-size: 20px;
+	overflow: hidden;
+	border: none;
+	opacity: 0.6;
+	/*text-indent: 200%;*/
+	color: transparent !important;
+	outline: none;
+}
+.down:hover {
+	color: transparent !important;
+	background-color: rgba(255,255,255,0.2);
+}
+
+/* SOCIAL */
+
+.soc {
+	height: 50px;
+	width: 50px;
+	display: block;
+	float: left;
+	color: transparent;
+	overflow: hidden;
+	border: none;
+	opacity: 0.7;
+	color: transparent !important;
+	outline: none;
+	background-size: 100%;
+	margin-right: 10px;
+}
+
+.soc:hover {
+	opacity: 1 !important;
+}
+
+#vk { background-image: url(vk_icon.png); }
+#fb { background-image: url(fb_icon.png); }
+#tw { background-image: url(tw_icon.png); }
+#ig { background-image: url(http://kitaptar.bashkort.org/promo/images/insta_icon.png); }
+#mail { background-image: url(http://kitaptar.bashkort.org/promo/images/mail_icon.png); }
+
+#vk:hover { background-image: url(vk_active.png); }
+#fb:hover { background-image: url(fb_active.png); }
+#tw:hover { background-image: url(tw_active.png); }
+#ig:hover { background-image: url(http://kitaptar.bashkort.org/promo/images/insta_active.png); }
+#mail:hover { background-image: url(http://kitaptar.bashkort.org/promo/images/mail_active.png); }
+
+/* Slides */
+
+#home {
+	background-image: -o-linear-gradient(0deg, #3023AE 0%, #53A0FD 48%, #B4EC51 100%);
+	background-image: -moz-linear-gradient(0deg, #3023AE 0%, #53A0FD 48%, #B4EC51 100%);
+	background-image: -ms-linear-gradient(0deg, #3023AE 0%, #53A0FD 48%, #B4EC51 100%);
+	background-image: linear-gradient(90deg, #3023AE 0%, #53A0FD 48%, #B4EC51 100%);
+	background: #4a3c2e url(bg_promo.jpg) no-repeat center;
+	background-size: cover;
+	display: table;
+	text-align: center !important;
+}
+
+#home div {
+	/*background-color: rgba(255,255,255,0.5);*/
+	margin: 0 auto;
+	width: 70%;
+	height: 50%;
+	/*padding: 15%;*/
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#androidkey {
+	background: #fff;
+}
+
+#pogosoff {
+	background: url(http://kitaptar.bashkort.org/promo/images/pogosoff_bg.svg) no-repeat center top;
+	background-size: cover;
+}
+
+#pogosoff .lp {
+	margin: 0 auto;
+}
+
+#pogosoff img {
+	margin-top: 0;
+}
+
+#exposet {
+	background: #7BE1C9;
+	/*background: #f2f2f2 url(images/gradient.svg);*/
+	background-size: cover;
+}
+
+#exposet .rp {
+	/*background: url(images/exposet_bg.png) no-repeat center;*/
+	/*width: 290px;
+	height: 525px;*/
+	/*background-size: 290px 520px;*/
+	margin-bottom: 0;
+/*	text-align: center;*/
+}
+
+#exposet .fluid {
+	/*background: url(images/exposet_bg.png) no-repeat center;*/
+	/*width: 290px;
+	height: 525px;*/
+	/*background-size: 290px 520px;*/
+	margin-bottom: 0 !important;
+/*	text-align: center;*/
+}
+
+/*#exposet .lp {
+	background: url(images/exposet_bg.png) no-repeat center;
+	width: 290px;
+	height: 525px;
+	background-size: 290px 520px;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+#exposet img {
+	width: 240px;
+	height: 433px;
+	margin: 89px 0 0 4px;
+}*/
+
+
+#marvel {
+	background: rgba(0,0,0,0.53) url(http://kitaptar.bashkort.org/promo/images/marvel_bg.jpg) no-repeat center top;
+	background-size: cover;
+}
+
+#marvel div.fluid {
+	background: url(http://kitaptar.bashkort.org/promo/images/marvel_img.png) no-repeat bottom center;
+	background-size: 100%;
+	height: 100%;
+	padding-bottom: 32%;
+	margin-bottom: 0;
+	min-height: 300px;
+}
+
+#sharing {padding-bottom: 30px; background-color: #F98B10;}
+
+#dc {
+	background: #2377BD url(http://kitaptar.bashkort.org/promo/images/dc_bg.jpg) no-repeat center top;
+	background-size: cover;
+}
+
+#dc div.fluid {
+	background: url(http://kitaptar.bashkort.org/promo/images/dc_img.png) no-repeat bottom center;
+	background-size: 100%;
+	height: 100%;
+	padding-bottom: 32%;
+	margin-bottom: 0;
+	min-height: 300px;
+}
+
+#mobilizer {
+	background-color: #2DCC70;
+}
+
+#mobilizer div.fluid, #mobilizer div.rp  {
+	margin-bottom: 0;
+	overflow: hidden;
+}
+
+#silwerhof {
+	background-color: #1EB0EB;
+}
+
+#silwerhof div.fluid, #silwerhof div.rp {
+	margin-bottom: 0 !important;
+	overflow: hidden;
+}
+
+#silwerhof img {
+	margin-top: 0 !important;
+}
+
+#msassisst {
+	background-color: #5DB420;
+}
+
+#bhi {
+	background: rgba(0,0,0,0.53) url(http://kitaptar.bashkort.org/promo/images/mactxtr.png);
+	background-size: 60px 60px;
+}
+
+#subscribe {
+	background: rgba(0,0,0,0.53) url(http://kitaptar.bashkort.org/promo/images/mactxtr.png);
+	background-size: 60px 60px;
+}
+
+#subscribe div.fluid {
+	background-size: 100%;
+	height: 100%;
+	padding-bottom: 20%;
+	margin-bottom: 0;
+	/*min-height: 300px;*/
+}
+
+#dtp {
+	background-color: #D60A28;
+}
+
+/*#dtp div.fluid {
+	background: url(images/mackeyboard.png) no-repeat bottom center;
+	background-size: 100%;
+	height: 100%;
+	padding-bottom: 20%;
+	margin-bottom: 0;
+	min-height: 300px;
+}*/
+
+#dupix {
+	background-color: #0081CC;
+}
+
+#newton {
+	background: #1B1F46 url(images/newton.jpg) no-repeat center;
+	background-size: cover;
+	min-height: 420px;
+}
+
+
+/* Mobile Layout: 480px and below. */
+
+@media screen and (max-height: 30.5em) {
+	h2 { text-align: left !important;}
+
+}
+
+.gridContainer {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	padding: 0;
+	clear: none;
+	float: none;
+}
+#div1 {
+}
+.zeroMargin_mobile {
+    margin-left: 0;
+}
+.hide_mobile {
+    display: none;
+}
+
+/* Tablet Layout: 481px to 960 (было 768px). Inherits styles from: Mobile Layout. */
+
+@media only screen and (min-width: 481px) {
+
+.gridContainer {
+	width: 100%;
+	padding: 0;
+	clear: none;
+	float: none;
+	margin-left: auto;
+}
+
+.overlay-open {
+	background: url(http://kitaptar.bashkort.org/promo/images/nav.png) no-repeat 50% 50%;
+	background-size: 24px 20px;
+}
+
+header {
+	height: 60px;
+	padding: 12px 20px 12px 20px;
+}
+
+h2 {
+  font-size: 42px;
+}
+
+.center {
+	text-align: center;
+}
+
+.cta {
+	width: 300px;
+}
+
+.zeroMargin_tablet {
+    margin-left: 0;
+}
+.hide_tablet {
+    display: none;
+}
+}
+
+/* Desktop Layout: (было 769px) 961 to a max of 1232px.  Inherits styles from: Mobile Layout and Tablet Layout. */
+
+@media only screen and (min-width: 961px) {
+
+.gridContainer {
+	width: 100%;
+	/*max-width: 1232px;*/
+	padding: 0;
+	margin: auto;
+	clear: none;
+	float: none;
+	margin-left: auto;
+}
+
+header {
+	height: 60px;
+	padding: 12px 20px 12px 20px;
+}
+
+.fluid {
+	width: 72%;
+	margin: 60px auto;
+}
+
+.lp, .rp {
+	width: 45%;
+	float: left;
+	display: block;
+	margin-bottom: 60px;
+}
+
+.lp1, .rp1 {
+	width: 30% !important;
+}
+
+.lp2, .rp2 {
+	width: 60% !important;
+}
+
+.lp .btn, .rp .btn {
+	display: block;
+}
+
+.rp {
+	margin-left: 10%;
+}
+
+/*p {
+	font-size: 16px;
+}*/
+
+h1 {
+  font-size: 3em !important;
+	margin: 0 !important;
+  line-height: 70px;
+  letter-spacing: -2px;
+  margin-top:15px;
+  font-weight: 500;
+}
+
+/*#exposet .lp {
+	width: 381px;
+	height: 679px;
+	background-size: 381px 679px;
+}
+
+#exposet img {
+	width: 320px;
+	height: 568px;
+	margin: 111px 0 0 6px;
+}*/
+
+.go {
+	/*margin: 0 auto;*/
+	width: auto;
+	background: url(http://kitaptar.bashkort.org/promo/images/go_red.png) no-repeat 50% 50%;
+	background-position: left;
+	background-size: 32px;
+	font-size: 20px;
+	max-width: 300px;
+}
+
+.down {
+	height: 80px;
+	background-size: 60px 26px;
+}
+
+.zeroMargin_desktop {
+    margin-left: 0;
+}
+.hide_desktop {
+    display: none;
+}
+/*.cta {
+	width: 300px;
+}*/
+
+}
