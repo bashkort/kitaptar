@@ -1,4 +1,4 @@
-storage/app/public/
+storage
 .git
 node_modules
 .env
