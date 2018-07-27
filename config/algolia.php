@@ -40,13 +40,8 @@ return [
     'connections' => [
 
         'main' => [
-            'id' => 'D5PMFTLE8T',
-            'key' => '2e67ea91fb4725b057556f2fd594f3d1',
-        ],
-
-        'alternative' => [
-            'id' => 'D5PMFTLE8T',
-            'key' => '2e67ea91fb4725b057556f2fd594f3d1',
+            'id' => env("ALGOLIA_APP_ID"),
+            'key' => env("ALGOLIA_SECRET"),
         ],
 
     ],
