@@ -1,6 +1,8 @@
 node_modules
 storage
+files
 vendor
 tests
 .env
 .idea
+.htaccess
