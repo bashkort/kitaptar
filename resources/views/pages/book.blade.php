@@ -10,7 +10,7 @@
                     <div class="panel-body">
                         <img class="img-thumbnail img-responsive pull-left book-cover"
                              src="/storage/{{  $book->cover }}"
-                             onerror="this.src='http://kitaptar.bashkort.org/template/default_cover.png'">
+                             onerror="this.src='https://kitaptar.bashkort.org/template/default_cover.png'">
                         @if(Auth::check() and (Auth::user()->role->id == 2 or $book->adder_id == Auth::user()->id))
                             <h1>
                                 ID: {{  $book->id }}
