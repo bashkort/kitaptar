@@ -153,7 +153,7 @@
 <!-- /Yandex.Metrika counter -->
 
 <!-- Share script -->
-<script type="text/javascript" src="http://bashkort.org/global/scripts/share.js"></script>
+<script type="text/javascript" src="{{ asset('js/social.js')  }}"></script>
 
 @yield('scripts')
 </body>

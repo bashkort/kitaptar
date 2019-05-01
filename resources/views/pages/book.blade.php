@@ -8,7 +8,7 @@
                     <div class="panel-heading">
                     </div>
                     <div class="panel-body">
-                        @if (Auth::check() && Auth::user()->role->name == "Redactor" && !$book->active)
+                        @if (!$book->active)
                             <div class="alert alert-warning">
                                 Книга была удалена
                             </div>
