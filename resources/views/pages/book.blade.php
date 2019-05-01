@@ -8,10 +8,15 @@
                     <div class="panel-heading">
                     </div>
                     <div class="panel-body">
+                        @if (Auth::check() && Auth::user()->role->name == "Redactor" && !$book->active)
+                            <div class="alert alert-warning">
+                                Книга была удалена
+                            </div>
+                        @endif
                         <img class="img-thumbnail img-responsive pull-left book-cover"
                              src="/storage/{{  $book->cover }}"
                              onerror="this.src='https://kitaptar.bashkort.org/img/default_cover.png'">
-                        @if(Auth::check() and (Auth::user()->role->id == 2 or $book->adder_id == Auth::user()->id))
+                        @if(Auth::check() and (Auth::user()->role->name == "Redactor" or $book->adder_id == Auth::user()->id))
                             <h1>
                                 ID: {{  $book->id }}
                             </h1>
@@ -23,10 +28,10 @@
                             <h3><a href="/author/{{ $author->id }}">{{  $author->name }}</a></h3>
                         @endforeach
                         <br/>
-                        <p>{{ $book-> description }}
+                        <p>{!! nl2br(e($book-> description))  !!}
                         <table class="table table-hover">
                             @foreach($book->files->filter(function($file){
-                              return $file->active;
+                              return $file->active or (Auth::check() and Auth::user()->role->name == "Redactor");
                             }) as $file)
                                 <tbody>
                                 <tr>
@@ -40,13 +45,23 @@
                                                     @endif
                                             >{{ $file->ext  }}</button>
                                         </a>
-                                        <span>
+                                        <span
+                                                @if (!$file->active)
+                                                style="color:red"
+                                        @endif
+                                        >
                               Добавлено: {{ $file -> created_at  }}
                             </span>
-                                        @if(Auth::check() and (Auth::user()->role->id == 2 or $book->adder_id == Auth::user()->id))
-                                            <a href="/delete/file/{{ $file->id }}">
-                                                <i class="fa fa-remove"></i>
-                                            </a>
+                                        @if(Auth::check() and (Auth::user()->role->name == "Redactor" or $book->adder_id == Auth::user()->id))
+                                            @if ($file->active)
+                                                <a href="/delete/file/{{ $file->id }}">
+                                                    <i class="fa fa-remove"></i>
+                                                </a>
+                                            @else
+                                                <a href="/recover/file/{{ $file->id }}">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            @endif
                                         @endif
 
                                     </th>
@@ -65,7 +80,7 @@
                                                     onclick="axios.post('/read/{{ $book->id }}');"
                                                     @endif
                                             >
-                                                READ
+                                                Уҡырға
                                             </button>
                                         </a>
                                     </th>
@@ -73,7 +88,7 @@
                                 </tbody>
                             @endforeach
                         </table>
-                        @if(Auth::check() && Auth::user()->role->id == 2)
+                        @if(Auth::check() && Auth::user()->role->name == "Redactor")
                             <form id="merge" role="form" action="#" method="get" enctype="multipart/form-data"
                                   class="form-horizontal"
                                   onsubmit="this.action='/mergeBooks/{{ $book->id }}/' + $('#id').val()">
@@ -97,6 +112,20 @@
                                 </div>
                             </form>
                         @endif
+
+                        <div class="text-center">
+                            <div class="fluid center" style="padding-bottom:60px;">
+                                <h2 class="center">Был китап тураһында дуҫтарығыҙға һөйләгеҙ!</h2>
+                                <span style="margin:0 auto; width: 180px; display: block;">
+                            <a class="btn soc" id="vk"
+                               onclick="Share.vkontakte('https://kitaptar.bashkort.org/book/{{$book->id}}','{{ $book->name }} | Китаптар.Bashkort','https://kitaptar.bashkort.org/storage/{{$book->cover}}','Башкирская электронная библиотека. Книги на башкирском языке, о башкирах и Башкортостане')">Вконтакте</a>
+                            <a class="btn soc" id="fb"
+                               onclick="Share.facebook('https://kitaptar.bashkort.org/book/{{$book->id}}','{{ $book->name }} | Китаптар.Bashkort','https://kitaptar.bashkort.org/storage/{{$book->cover}}','Башкирская электронная библиотека. Книги на башкирском языке, о башкирах и Башкортостане')">Facebook</a>
+                            <a class="btn soc" id="tw"
+                               onclick="Share.twitter('https://kitaptar.bashkort.org/book/{{$book->id}}', '{{ $book->name }} | Китаптар.Bashkort')">Твиттер</a>
+                            </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-footer">
                         @if (Auth::check())
@@ -107,10 +136,21 @@
                         @endif
                         <i class="fa fa-eye"></i>{{  $book->authorized_views_count + $book->unauthorized_views_count }}
                         <i class="fa fa-download"></i>{{ $book->authorized_downloads_count + $book->unauthorized_downloads_count  }}
-                        @if(Auth::check() && (Auth::user()->role->id == 2 || $book->adder_id == Auth::user()->id))
+                        @if(Auth::check() && (Auth::user()->role->name == "Redactor" || $book->adder_id == Auth::user()->id))
                             <a href="/edit/book/{{ $book->id }}"><i class="fa fa-edit"></i></a>
-                            <a href="/delete/book/{{ $book->id }}" style="float: right">
-                                <i class="fa fa-remove"></i> Удалить
+                            @if($book->active)
+                                <a href="/delete/book/{{ $book->id }}" style="float: right">
+                                    <i class="fa fa-remove"></i> Удалить
+                                </a>
+                            @else
+                                <a href="/recover/book/{{ $book->id }}" style="float: right">
+                                    <i class="fa fa-plus"></i> Восстановить
+                                </a>
+                            @endif
+                        @else
+                            <a href="mailto:ildar@bashkort.org?subject=Ошибка в книге №{{$book->id}}"
+                               style="float: right">
+                                Сообщить об ошибке
                             </a>
                         @endif
                     </div>

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateReadsTable extends Migration
 {
@@ -16,8 +16,9 @@ class CreateReadsTable extends Migration
         Schema::create('reads', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('book_id');    
+            $table->integer('book_id');
             $table->timestamps();
+            $table->text('page');
         });
     }
 
