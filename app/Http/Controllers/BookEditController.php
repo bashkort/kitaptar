@@ -44,9 +44,8 @@ class BookEditController extends Controller
             };
             }
         }
-        foreach($book->authors as $author){
-            $book->authors()->detach($author->id);
-        }
+        // Clear all existing author relationships
+        $book->authors()->detach();
         $book->save();
         foreach($request->authors as $author_name){
             if($author_name == ""){
