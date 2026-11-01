@@ -9,6 +9,11 @@ use Laravel\Scout\Searchable;
 class Book extends Model
 {
     use Searchable;
+    
+    /**
+     * Disable Scout indexing temporarily
+     */
+    public $shouldBeSearchable = false;
 
     public function liked()
     {

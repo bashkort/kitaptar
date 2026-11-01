@@ -28,23 +28,24 @@ class BookEditController extends Controller
             $path = Storage::disk('public')->put("/$preview_name", $image);
         }
         $book->language = $request->language;
-        $authors_names = trim(implode(", ", $request->authors));
-        $book->authors_names = substr($authors_names, 0, strlen($authors_names) - 1);
+        $authors_names = implode(", ", array_filter($request->authors));
+        $book->authors_names = rtrim($authors_names, ", ");
         $book->description = $request->description;
-        for ($i = 0; $i < count((array)$request->book_files); $i++) {
+        if ($request->book_files !== null) {
+            for ($i = 0; $i < count($request->book_files); $i++) {
             try {
                 $extension = $request->book_files[$i]->extension();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return view("upload/fail");
             }
 
             if (!in_array($extension, ["fb2", "epub", "txt", "doc", "docx", "pdf", "zip", "xml", "djvu"])){
                 return view("upload/fail");
             };
+            }
         }
-        foreach($book->authors as $author){
-            $book->authors()->detach($author->id);
-        }
+        // Clear all existing author relationships
+        $book->authors()->detach();
         $book->save();
         foreach($request->authors as $author_name){
             if($author_name == ""){
